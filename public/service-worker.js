@@ -1,5 +1,5 @@
-var dataCacheName = 'template-pwa';
-var cacheName = 'template-pwa';
+var dataCacheName = 'roche-pwa';
+var cacheName = 'roche-pwa';
 var filesToCache = [
   '/',
  "./fonts",
@@ -22,6 +22,7 @@ var filesToCache = [
  "./images/icons/icon-192x192.png",
  "./images/icons/icon-256x256.png",
  "./index.html",
+ "./about.html",
  "./manifest.json",
  "./scripts",
  "./scripts/app.js",

@@ -30,31 +30,87 @@
          href="images/icons/icon-144x144.png">
   </head>
   <body>
-
+    <header>
+      <a href="#" class="brand-logo center"><img src="images/RocheInteract_Logo.png" alt="roche interactive"></a>
+    </header>
+    <div id="token"></div>
+    <div id="msg"></div>
+    <div id="notis"></div>
+    <div id="err"></div>
+    
     <nav>
-      <div class="nav-wrapper blue darken-4">
-        <a href="#" class="brand-logo center">Roche PWA Test</a>
-      </div>
+      <ul class="nav-wrapper blue darken-1">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Roche</a></li>
+      </ul>
     </nav>
 
     <main class="container">
       <div class="row">
         <div class="col s12">
-          <div class="card blue-grey darken-1">
-            <div class="card-content white-text">
-              <span class="card-title">Your message</span>
-              <p><div id="display">DISPLAY</div></p>
-            </div>
-          </div>
-          Enter your message
-          <input id="message" type="text" class="validate">
-          <button class="waves-effect waves-light btn-large" id="button" type="button" name="button">
-            Submit
-          </button>
+            <h1>Welcome to homepage</h1>
+            <p> This website has been created for Australian healthcare professionals.
+
+                This site is not intended or designed for reporting adverse events (side effects), however adverse events can be sent to the Roche Australia Drug Safety department via email at australia.drug_safety@roche.com or by phone on 02 9454 9444.
+                
+                In Australia, Roche is the licensed distributor of FoundationOne®CDx and FoundationOne® Heme comprehensive genomic profiling (CGP) services and decision support tools.
+                
+                Contact
+                
+                If you would like to request access to your personal information held by Roche, request an amendment or correction of your personal information held by Roche, ask us to remove your personal information from our system, or ask us questions about, or request a copy of our Privacy Policy, please email us at australia.privacy-request@roche.com or write to the Privacy Officer, Roche Products Pty Limited, Level 8, 30-34 Hickson Road, Sydney NSW 2000.
+                
+                For details about how we collect, use, share, protect and handle Your Data, please refer to the Roche Privacy Policy which may be amended from time to time in compliance with the Act and other relevant privacy laws.
+                
+                The Website of Roche and the information contained and referenced therein are for informational purposes only. Any reproduction, retransmission or other use is strictly prohibited. Requests for permission to reproduce any information contained on this Website should be addressed to the Roche Webmaster.</p>
         </div>
       </div>
     </main>
 
     <script type="text/javascript" src="scripts/app.js"></script>
+
+    
+
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/5.11.1/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#config-web-app -->
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyCM8zbRnpMCckaSZtHs92eZsPa9Jk5x2so",
+    authDomain: "roche-pwa-3959c.firebaseapp.com",
+    databaseURL: "https://roche-pwa-3959c.firebaseio.com",
+    projectId: "roche-pwa-3959c",
+    storageBucket: "roche-pwa-3959c.appspot.com",
+    messagingSenderId: "335996145055",
+    appId: "1:335996145055:web:826682d9ce38c423"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+        const messaging = firebase.messaging();
+        messaging
+            .requestPermission()
+            .then(function () {
+                MsgElem.innerHTML = "Notification permission granted." 
+                console.log("Notification permission granted.");
+                
+                // get the token in the form of promise
+                return messaging.getToken()
+            })
+            .then(function(token) {
+                TokenElem.innerHTML = "token is : " + token
+            })
+            .catch(function (err) {
+                ErrElem.innerHTML =  ErrElem.innerHTML + "; " + err
+                console.log("Unable to get permission to notify.", err);
+            });
+        messaging.onMessage(function(payload) {
+            console.log("Message received. ", payload);
+            NotisElem.innerHTML = NotisElem.innerHTML + JSON.stringify(payload) 
+        });
+    </script>
   </body>
 </html>
